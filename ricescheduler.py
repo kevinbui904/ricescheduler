@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
-import re, sys, urllib2
-import arrow # http://crsmithdev.com/arrow/
+import re, sys
+import urllib.request as urllib2
+import arrow # http://crsmithdev.com/arrow/  #https://pypi.org/project/arrow/
 import pypandoc # https://github.com/bebraw/pypandoc
 from bs4 import BeautifulSoup
 from itertools import cycle
@@ -106,7 +107,7 @@ def markdown(schedule, semester, year, templatedir):
     course = [d + '[Fill in class plan]\n\n' if 'NO CLASS' not in d else d for d in course]
     md_args = ['--template=' + templatedir + '/syllabus.md', '--to=markdown',
             '--variable=semester:' + semester.capitalize(), '--variable=year:' + year]
-    return pypandoc.convert('\n'.join(course), 'md', 'md', md_args)
+    return pypandoc.convert_text('\n'.join(course), 'md', 'md', md_args)
 
 def output(schedule, semester, year, fmt, templatedir, outfile):
     md = markdown(schedule, semester, year, templatedir)
@@ -117,5 +118,5 @@ def output(schedule, semester, year, fmt, templatedir, outfile):
         template_arg = '--template=' + template
     pandoc_args = ['--standalone']
     pandoc_args.append(template_arg)
-    output = pypandoc.convert(md, fmt, 'md', pandoc_args, outputfile=outfile)
+    output = pypandoc.convert_file(md, fmt, 'md', pandoc_args, outputfile=outfile)
     assert output == ''

@@ -10,7 +10,7 @@
 
                 <p>Fill out the form to receive a list of all the dates when your course will meet during the specified semester.</p>
 
-                <form method="post" action="{{ url_for('classes') }}">
+                <form method="post" action="{{ url_for('results_carleton') }}">
 
                   <h3>Choose the year of your semester.</h3>
 
@@ -56,8 +56,14 @@
                       <input type="checkbox" name="days" value="Friday">Friday</input><br>
                       <input type="checkbox" name="days" value="Saturday">Saturday</input>
 
-                  <h3>Choose your date format.</h3>
+                  <h2>Choose your output and date format.</h2>
                   
+                  <select name="output" class="block col-12 ck mb1 field">
+                      <option value="plain">Plain text list of course meetings</option>
+                      <option value="docx">Full DOCX syllabus template</option>
+                      <option value="tex">Full LaTeX syllabus template</option>
+                      <option value="html">Full HTML syllabus template</option>
+                  </select>
                   <select name="format" class="block col-12 ck mb1 field">
                       {% for format in formats %}
                           <option value="{{format}}">{{format}}</option>
@@ -71,7 +77,6 @@
                 </form>
 
                   <p>Created by <a href="http://wcm1.web.rice.edu">Caleb McDaniel</a>. Report problems by email or on <a href="https://github.com/wcaleb/ricescheduler">GitHub</a>. See also the full-featured <a href="/syllabusmaker/">Rice version</a> of the syllabus maker.</p> 
-
         </main>
         </div>
     </body>
