@@ -88,13 +88,14 @@ def parse_registrar_table(table):
 def sorted_classes(weekdays, first_day, last_day, no_classes):
     ''' Take class meetings as list of day names, return lists of Arrow objects '''
     semester = range_of_days(first_day[0], last_day[0])
+    print(semester)
     possible_classes = [d for d in semester if locale().day_name(d.isoweekday()) in weekdays]
     return possible_classes, no_classes
 
-def schedule(possible_classes, no_classes, show_no=None, fmt=None):
+def schedule(possible_classes, no_classes, show_no=None, format=None):
     ''' Take lists of Arrow objects, return list of course meetings as strings '''
     course = []
-    date_format = fmt if fmt else 'dddd, MMMM D, YYYY'
+    date_format = format if format else 'dddd, MMMM D, YYYY'
     for d in possible_classes:
         if d not in no_classes:
             course.append(d.format(date_format))
@@ -105,18 +106,30 @@ def schedule(possible_classes, no_classes, show_no=None, fmt=None):
 def markdown(schedule, semester, year, templatedir):
     course = ['## ' + d + '\n' for d in schedule]
     course = [d + '[Fill in class plan]\n\n' if 'NO CLASS' not in d else d for d in course]
-    md_args = ['--template=' + templatedir + '/syllabus.md', '--to=markdown',
+    md_args = ['--template=' + templatedir + '/syllabus.md',
             '--variable=semester:' + semester.capitalize(), '--variable=year:' + year]
-    return pypandoc.convert_text('\n'.join(course), 'md', 'md', md_args)
+    
+    #NOTE:
+    ##  extra_args is simply an extra param that allows us to access 
+    ##  Pandoc's options, for a list of all options available, see
+    ##  Pandoc's official documentation https://pandoc.org/MANUAL.html#pandocs-markdown
+    
+    #NOTE 2:
+    ##  pandoc uses their own unique version of markdown (developed by John Gruber’s Markdown syntax)
+    ##  for the md_args, just poke around the documentation. Our current (1.0.0)
+    ##  version only specifies to use a template and substitute some variable names
+    output = pypandoc.convert_text('\n'.join(course), "md", format="md", extra_args=md_args)
+    # return output
+    print(output)
 
-def output(schedule, semester, year, fmt, templatedir, outfile):
+def output(schedule, semester, year, format, templatedir, outfile):
     md = markdown(schedule, semester, year, templatedir)
-    template = templatedir + '/syllabus.' + fmt if templatedir else ""
-    if fmt == 'docx':
+    template = templatedir + '/syllabus.' + format if templatedir else ""
+    if format == 'docx':
         template_arg = '--reference-docx=' + template
     else:
         template_arg = '--template=' + template
     pandoc_args = ['--standalone']
     pandoc_args.append(template_arg)
-    output = pypandoc.convert_file(md, fmt, 'md', pandoc_args, outputfile=outfile)
+    output = pypandoc.convert_file(md, format, 'md', pandoc_args, outputfile=outfile)
     assert output == ''
