@@ -112,7 +112,7 @@ def results_carleton():
         tf = NamedTemporaryFile(suffix=suffix)
         output(course, semester, str(year), output_fmt, templatedir=templatedir, outfile=tf.name)
         filename = semester + str(year) + 'Syllabus' + suffix
-        return send_file(tf.name, attachment_filename=filename, as_attachment=True)
+        return send_file(tf.name, download_name=filename, as_attachment=True)
 
 
 if __name__ == '__main__':

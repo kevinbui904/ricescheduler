@@ -92,10 +92,10 @@ def sorted_classes(weekdays, first_day, last_day, no_classes):
     possible_classes = [d for d in semester if locale().day_name(d.isoweekday()) in weekdays]
     return possible_classes, no_classes
 
-def schedule(possible_classes, no_classes, show_no=None, format=None):
+def schedule(possible_classes, no_classes, show_no=None, fmt=None):
     ''' Take lists of Arrow objects, return list of course meetings as strings '''
     course = []
-    date_format = format if format else 'dddd, MMMM D, YYYY'
+    date_format = fmt if fmt else 'dddd, MMMM D, YYYY'
     for d in possible_classes:
         if d not in no_classes:
             course.append(d.format(date_format))
@@ -119,17 +119,17 @@ def markdown(schedule, semester, year, templatedir):
     ##  for the md_args, just poke around the documentation. Our current (1.0.0)
     ##  version only specifies to use a template and substitute some variable names
     output = pypandoc.convert_text('\n'.join(course), "md", format="md", extra_args=md_args)
-    # return output
-    print(output)
+    return output
 
-def output(schedule, semester, year, format, templatedir, outfile):
+## fmt shorthand for 'format' 
+def output(schedule, semester, year, fmt, templatedir, outfile):
     md = markdown(schedule, semester, year, templatedir)
-    template = templatedir + '/syllabus.' + format if templatedir else ""
-    if format == 'docx':
-        template_arg = '--reference-docx=' + template
+    template = templatedir + '/syllabus.' + fmt if templatedir else ""
+    if fmt == 'docx':
+        template_arg = '--reference-doc=' + template
     else:
         template_arg = '--template=' + template
     pandoc_args = ['--standalone']
     pandoc_args.append(template_arg)
-    output = pypandoc.convert_file(md, format, 'md', pandoc_args, outputfile=outfile)
+    output = pypandoc.convert_text(md, fmt, format='md', outputfile=outfile, extra_args=pandoc_args)
     assert output == ''
