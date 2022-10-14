@@ -21,25 +21,9 @@ Office Hours:
 
 # Absence Policies
 
-# Rice Honor Code
-
-In this course, all students will be held to the standards of the Rice
-Honor Code, a code that you pledged to honor when you matriculated at
-this institution. If you are unfamiliar with the details of this code
-and how it is administered, you should consult the Honor System
-Handbook at <http://honor.rice.edu/honor-system-handbook/>. This
-handbook outlines the University's expectations for the integrity of
-your academic work, the procedures for resolving alleged violations of
-those expectations, and the rights and responsibilities of students
-and faculty members throughout the process.
-
 # Disability Support Services
 
-If you have a documented disability or other condition that may affect
-academic performance you should: 1) make sure this documentation is on
-file with Disability Support Services (Allen Center, Room 111 /
-<adarice@rice.edu> / x5841) to determine the accommodations you need;
-and 2) talk with me to discuss your accommodation needs.
+Carleton College is committed to providing equitable access to learning opportunities for all students. The Office of Accessibility Resources (Henry House, 107 Union Street) is the campus office that collaborates with students who have disabilities to provide and/or arrange reasonable accommodations. If you have, or think you may have, a disability (e.g., mental health, attentional, learning, autism spectrum disorders, chronic health, traumatic brain injury and concussions, vision, hearing, mobility, or speech impairments), please contact <OAR@carleton.edu> or call Sam Thayer (’10),  Director of the Office of Accessibility Resources (x4464), to arrange a confidential discussion regarding equitable access and reasonable accommodations. Last updated August 23, 2022.
 
 # Syllabus Change Policy
 
